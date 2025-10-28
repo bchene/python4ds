@@ -1,0 +1,27 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Fichiers de configuration
+.vscode/
+.idea/
+.env
+.env.local
+.env.development.local
+*.swp
+*.swo
+
+# Fichiers Python dans src/
+*.pyc
+*.pyo
+__pycache__/
+
+# Fichiers de test
+tester.py
+tester.sh
+tester*
+
+# Fichiers de build
+dist/
+build/
+*.egg-info/

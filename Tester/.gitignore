@@ -1,0 +1,17 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Fichiers de configuration
+.vscode/
+.idea/
+.env
+.env.local
+.env.development.local
+*.swp
+*.swo
+
+# Fichiers Python dans src/
+*.pyc
+*.pyo
+__pycache__/

@@ -1,0 +1,22 @@
+# Fichier de configuration pour Ruff
+# Placez-le à la racine de votre projet
+
+[tool.ruff]
+# Indique à Ruff d'être aussi strict que flake8
+select = [
+    "E",  # Erreurs (de pycodestyle)
+    "W",  # Warnings (de pycodestyle)
+    "F",  # Flakes (erreurs logiques, ex: variable inutilisée)
+    "D",  # Docstrings (de pydocstyle) - C'EST LA RÈGLE 4 !
+    "E722", # Règle pour le 'except' nu (Règle 3)
+]
+
+# On peut ignorer certaines règles de docstring trop strictes
+ignore = [
+    "D100", # Manque un docstring en haut du module (peut être gênant)
+    "D107", # Manque un docstring dans __init__
+]
+
+[tool.ruff.lint]
+# Active le set de règles pydocstyle
+select = ["D"]
