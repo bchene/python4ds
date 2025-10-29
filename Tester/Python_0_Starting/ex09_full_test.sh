@@ -1,7 +1,7 @@
 #!/bin/bash
 # Script complet pour tester l'exercice 09 (ft_package)
 
-PROJECT_DIR="../../Dev/Python_0_Starting/ex09/ft_package_project"
+PROJECT_DIR="../../Dev/Python_0_Starting/ex09"
 TESTER_DIR="$(pwd)"
 
 echo "========================================="
