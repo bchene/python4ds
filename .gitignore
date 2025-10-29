@@ -2,6 +2,12 @@
 .DS_Store
 Thumbs.db
 
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
 # Fichiers de configuration
 .vscode/
 .idea/
@@ -11,7 +17,13 @@ Thumbs.db
 *.swp
 *.swo
 
-# Fichiers Python dans src/
-*.pyc
-*.pyo
+# Python cache
 __pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environments
+venv/
+env/
+ENV/

@@ -1,3 +1,8 @@
+# Build files
+build/
+dist/
+*.egg-info/
+
 # OS
 .DS_Store
 Thumbs.db
@@ -27,13 +32,3 @@ __pycache__/
 venv/
 env/
 ENV/
-
-# Fichiers Python dans le projet
-*.pyc
-*.pyo
-__pycache__/
-
-# tester files
-*tester.py
-*tester.sh
-*tester*
