@@ -1,0 +1,39 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Fichiers de configuration
+.vscode/
+.idea/
+.env
+.env.local
+.env.development.local
+*.swp
+*.swo
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# Fichiers Python dans le projet
+*.pyc
+*.pyo
+__pycache__/
+
+# tester files
+*tester.py
+*tester.sh
+*tester*
