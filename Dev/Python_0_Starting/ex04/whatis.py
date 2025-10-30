@@ -12,8 +12,8 @@ def even_or_odd(n):
 
     Raises:
         ValueError: If the argument is not an integer.
-    
     """
+
     try:
         n = int(n)
     except ValueError:
@@ -28,13 +28,17 @@ def even_or_odd(n):
 
 if __name__ == "__main__":
     try:
-        if len(system.argv) > 2:
-            raise ValueError("more than one argument is provided")
-        if len(system.argv) == 2:
-            even_or_odd(system.argv[1])
-        exit(0)
-    
-    except Exception as e:
-        print(f"AssertionError: {e}")
+        if len(system.argv) < 2:
+            exit(0)
+        assert len(system.argv) == 2, "more than one argument is provided"
+        assert system.argv[1].isdigit(), "argument is not an integer"
+    except AssertionError as e:
+        print(f"AssertionError : {e}")
         exit(1)
 
+    try:
+        even_or_odd(system.argv[1])
+        exit(0)
+    except Exception as e:
+        print(f"Exception : {e}")
+        exit(1)

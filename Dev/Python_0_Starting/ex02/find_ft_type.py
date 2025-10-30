@@ -1,5 +1,5 @@
 def all_thing_is_obj(obj) -> int:
-	# List
+    # List
     if isinstance(obj, list):
         print(f"List : {type(obj)}")
     # Tuple

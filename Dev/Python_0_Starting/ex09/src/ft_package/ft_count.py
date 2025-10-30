@@ -17,6 +17,8 @@ def count_in_list(lst: list, item_to_count: any) -> int:
         return sum(1 for item in lst if item == item_to_count)
 
     except TypeError as e:
-        raise TypeError(f"the object provided is not a list or is not iterable. {e}")
+        raise TypeError(
+            f"the object provided is not a list or is not iterable. {e}"
+        )
     except Exception as e:
         raise Exception(f"an unexpected error occurred: {e}")

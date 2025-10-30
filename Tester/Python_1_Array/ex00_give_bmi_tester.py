@@ -1,14 +1,17 @@
 from give_bmi import give_bmi, apply_limit
 
 
-def test_bmi_function(height: list[int | float], weight: list[int | float], limit: int):
+def test_bmi_function(
+    height: list[int | float], weight: list[int | float], limit: int
+) -> None:
     """Test the bmi functions with the given height and weight."""
     try:
         print(f"height = {height} - weight = {weight}")
         bmi = give_bmi(height, weight)
         print(f"give_bmi -> {bmi} {type(bmi)}")
         apply_limit_result = apply_limit(bmi, limit)
-        print(f"apply_limit -> {apply_limit_result} {type(apply_limit_result)}")
+        print(f"apply_limit -> \
+        {apply_limit_result} {type(apply_limit_result)}")
     except Exception as e:
         print(f"\033[91mAssertionError: {e}\033[0m")
 

@@ -20,3 +20,8 @@ echo "filterstring.py"
 python filterstring.py
 # AssertionError: the arguments are bad
 echo ""
+
+echo "filterstring.py '' 5"
+python filterstring.py '' 5
+# []
+echo ""

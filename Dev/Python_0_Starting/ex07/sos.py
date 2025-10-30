@@ -2,7 +2,19 @@ import sys as system
 
 
 def charToMorseString(char):
-    """Convert a character to its Morse Code string."""
+    """Convert a character to its Morse Code string.
+
+    Args:
+        char: The character to convert.
+
+    Returns:
+        The Morse Code string.
+
+    Raises:
+        AssertionError: If the character is not a single alphanumeric \
+        character or a space.
+    """
+
     NESTED_MORSE = {
         " ": "/ ",
         "A": ".- ",
@@ -42,17 +54,30 @@ def charToMorseString(char):
         "9": "----. ",
         "0": "----- ",
     }
-    if (
-        not isinstance(char, str)
-        or (not char.isalnum() and char != " ")
-        or len(char) != 1
-    ):
-        raise TypeError("the arguments are bad")
+    assert (
+        isinstance(char, str)
+        and (char.isalnum() or char == " ")
+        and len(char) == 1
+    ), "char must be a single alphanumeric character or a space"
+
     return NESTED_MORSE.get(char.upper(), "")
 
 
 def textToMorseString(text):
-    """Encode a text into Morse Code string."""
+    """Encode a text into Morse Code string.
+
+    Args:
+        text: The text to encode.
+
+    Returns:
+        The Morse Code string.
+
+    Raises:
+        AssertionError: If the text is not a string.
+    """
+    assert isinstance(text, str), "text must be a string"
+    assert all((c.isalnum() or c == " ") for c in text), \
+        "text must be a string of alphanumeric characters or spaces"
     morse_string = ""
     for char in text:
         morse_string += charToMorseString(char)
@@ -62,13 +87,17 @@ def textToMorseString(text):
 def main():
     """Encode a string into Morse Code."""
     try:
-        if len(system.argv) != 2:
-            raise ValueError("the arguments are bad")
-        if not all((c.isalnum() or c == " ") for c in system.argv[1]):
-            raise ValueError("the arguments are bad")
+        assert len(system.argv) == 2, "1 argument is required"
+
+        assert isinstance(system.argv[1], str), \
+            "argument must be a string"
         print(textToMorseString(system.argv[1]))
-    except Exception as e:
+        exit(0)
+    except AssertionError as e:
         print(f"AssertionError: {e}")
+        exit(1)
+    except Exception as e:
+        print(f"Exception: {e}")
 
 
 if __name__ == "__main__":

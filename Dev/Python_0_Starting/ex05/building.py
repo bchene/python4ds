@@ -2,13 +2,25 @@ import sys as system
 
 
 def textStatistics(text):
-    """Print the statistics of the text."""
+    """
+    Print the statistics of the text.
+
+    Args:
+        text: The text to count.
+
+    Returns:
+        None
+
+    Raises:
+        AssertionError: If the text is not a string.
+    """
+    assert isinstance(text, str), "text must be a string"
     upper_count = sum(1 for c in text if c.isupper())
     lower_count = sum(1 for c in text if c.islower())
-    punct_count = sum(1 for c in text if c in "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~")
+    punctuations = r"""!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~"""
+    punct_count = sum(1 for c in text if c in punctuations)
     space_count = sum(1 for c in text if c.isspace())
     digit_count = sum(1 for c in text if c.isdigit())
-
     print(f"The text contains {len(text)} characters:")
     print(f"{upper_count} upper letters")
     print(f"{lower_count} lower letters")
@@ -18,20 +30,36 @@ def textStatistics(text):
 
 
 def main():
-    """Get the statistics of the first argument text."""
+    """
+    Get the statistics of the first argument text.
+    If no argument is provided, ask the user for a text.
+
+    Args:
+        system.argv: The arguments passed to the program.
+
+    Raises:
+        AssertionError: If the number of arguments is not 0 or 1.
+        Exception: If the input is not a string.
+    """
     try:
-        if len(system.argv) > 2:
-            raise ValueError(
-                "too many arguments (only one string argument is required)"
-            )
-        elif len(system.argv) < 2 or system.argv[1] == None or system.argv[1] == "":
-            print("One string argument is required")
-            exit(0)
-        textStatistics(system.argv[1])
+        assert len(system.argv) <= 2, "at most one argument is allowed"
+
+        if len(system.argv) == 2 and system.argv[1] != "":
+            s = system.argv[1]
+        else:
+            # 0 argument ou argument vide -> demander un texte non vide
+            s = ""
+            while s == "":
+                s = input("Enter a text: ")
+
+        textStatistics(s)
         exit(0)
 
-    except Exception as e:
+    except AssertionError as e:
         print(f"AssertionError: {e}")
+        exit(1)
+    except Exception as e:
+        print(f"Exception: {e}")
         exit(1)
 
 

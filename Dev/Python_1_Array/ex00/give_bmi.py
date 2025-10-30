@@ -1,26 +1,36 @@
 import numpy as np
 
 
-def give_bmi(height: list[int | float], weight: list[int | float]) -> list[int | float]:
-    """Calculate the BMI of persons from a list of weights and heights."""
+def give_bmi(
+        height: list[int | float], weight: list[int | float]
+) -> list[int | float]:
+    """Calculate the BMI of persons from a list of weights and heights.
+
+    Args:
+        height: list of heights.
+        weight: list of weights.
+
+    Returns:
+        list of BMI.
+    """
     try:
         # Check if the arguments are valid.
         if not isinstance(height, list) or not isinstance(weight, list):
             raise ValueError("height and weight lists are required")
         if not all(isinstance(c, (float, int)) for c in height):
-            raise ValueError("height lists must be lists of floats or integers")
+            raise ValueError("height lists items must be floats or integers")
         if not all(isinstance(c, (float, int)) for c in weight):
-            raise ValueError("weight lists must be lists of floats or integers")
+            raise ValueError("weight lists items must be floats or integers")
         if not all(c > 0 for c in weight) or not all(c > 0 for c in height):
             raise ValueError("height and weight lists must be positive")
         if len(weight) != len(height):
-            raise ValueError("height and weight lists must have the same length")
+            raise ValueError("list size are not the same")
         # Calculate the BMI of persons from a list of weights and heights.
-        result = (np.array(weight) / (np.array(height) ** 2)).tolist()
-        return result
-
+        return (np.array(weight) / (np.array(height) ** 2)).tolist()
     except ValueError as e:
         raise ValueError(f"the arguments are bad: {e}")
+    except Exception as e:
+        raise Exception(f"an unexpected error occurred: {e}")
 
 
 def apply_limit(bmi: list[int | float], limit: int) -> list[bool]:
