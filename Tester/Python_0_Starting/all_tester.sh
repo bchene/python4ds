@@ -8,9 +8,9 @@ DEV_DIR="$(cd "$BASE_DIR/../../Dev/Python_0_Starting" && pwd)"
 
 if [ $# -eq 1 ]; then
     EX_NUM=$1
-    echo "========================================="
-    echo "TEST EX0${EX_NUM}"
-    echo "========================================="
+    echo "=========================================================="
+    echo "PYTHON FOR DATA SCIENCE - 0 STARTING - EX0${EX_NUM} TESTER"
+    echo "=========================================================="
     echo ""
     
     case "$EX_NUM" in
