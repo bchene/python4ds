@@ -58,7 +58,7 @@ def charToMorseString(char):
         isinstance(char, str)
         and (char.isalnum() or char == " ")
         and len(char) == 1
-    ), "char must be a single alphanumeric character or a space"
+    ), "argument must be a string of alphanumeric characters or spaces"
 
     return NESTED_MORSE.get(char.upper(), "")
 
@@ -75,9 +75,7 @@ def textToMorseString(text):
     Raises:
         AssertionError: If the text is not a string.
     """
-    assert isinstance(text, str), "text must be a string"
-    assert all((c.isalnum() or c == " ") for c in text), \
-        "text must be a string of alphanumeric characters or spaces"
+    assert isinstance(text, str), "argument must be a string"
     morse_string = ""
     for char in text:
         morse_string += charToMorseString(char)
@@ -88,9 +86,6 @@ def main():
     """Encode a string into Morse Code."""
     try:
         assert len(system.argv) == 2, "1 argument is required"
-
-        assert isinstance(system.argv[1], str), \
-            "argument must be a string"
         print(textToMorseString(system.argv[1]))
         exit(0)
     except AssertionError as e:
