@@ -6,12 +6,18 @@ set +e  # Continuer même en cas d'erreur
 BASE_DIR="$(cd "$(dirname "$0")" && pwd)"
 DEV_DIR="$(cd "$BASE_DIR/../../Dev/Python_0_Starting" && pwd)"
 
+if [ $# -eq 0 ]; then
+    for i in {0..9}; do
+        ./all_tester.sh $i
+    done
+    exit 0
+fi
+
 if [ $# -eq 1 ]; then
     EX_NUM=$1
-    echo "=========================================================="
-    echo "PYTHON FOR DATA SCIENCE - 0 STARTING - EX0${EX_NUM} TESTER"
-    echo "=========================================================="
-    echo ""
+    echo -e "\033[96m==========================================================\033[0m"
+    echo -e "\033[96mPYTHON FOR DATA SCIENCE - 0 STARTING - EX0${EX_NUM} TESTER\033[0m"
+    echo -e "\033[96m==========================================================\033[0m"
     
     case "$EX_NUM" in
         0)
@@ -48,6 +54,9 @@ if [ $# -eq 1 ]; then
             ;;
         6)
             cd "$DEV_DIR/ex06"
+            cp "$BASE_DIR/ex06_ft_filter_doc_tester.py" .
+            python ex06_ft_filter_doc.py
+            rm ex06_ft_filter_doc.py
             cp "$BASE_DIR/ex06_ft_filter_tester.sh" .
             bash ex06_ft_filter_tester.sh
             rm ex06_ft_filter_tester.sh
@@ -74,8 +83,6 @@ if [ $# -eq 1 ]; then
             ;;
     esac
     
-    echo ""
-    echo "✅ EX0${EX_NUM} TERMINÉ"
     exit 0
 fi
 echo "❌ Erreur argument: Utilisez un nombre de 0 à 9."

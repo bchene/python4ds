@@ -1,22 +1,22 @@
 # Fichier de configuration pour Ruff
-# Placez-le à la racine de votre projet
-
-[tool.ruff]
-# Indique à Ruff d'être aussi strict que flake8
-select = [
-    "E",  # Erreurs (de pycodestyle)
-    "W",  # Warnings (de pycodestyle)
-    "F",  # Flakes (erreurs logiques, ex: variable inutilisée)
-    "D",  # Docstrings (de pydocstyle) - C'EST LA RÈGLE 4 !
-    "E722", # Règle pour le 'except' nu (Règle 3)
-]
-
-# On peut ignorer certaines règles de docstring trop strictes
-ignore = [
-    "D100", # Manque un docstring en haut du module (peut être gênant)
-    "D107", # Manque un docstring dans __init__
-]
+# Configuration pour utiliser uniquement les règles flake8 (pycodestyle + pyflakes)
 
 [tool.ruff.lint]
-# Active le set de règles pydocstyle
-select = ["D"]
+# Active uniquement les règles flake8 :
+# - E : Erreurs de pycodestyle (PEP 8 style errors)
+# - W : Warnings de pycodestyle (PEP 8 style warnings)
+# - F : Règles de pyflakes (détection d'erreurs logiques)
+select = ["E", "W", "F"]
+
+# Pas d'ignore pour être strict comme flake8
+# ignore = []
+
+# Configuration supplémentaire si nécessaire
+# extend-select = []
+
+[tool.ruff.format]
+# Active le formatage automatique avec Ruff
+# Le formatage de Ruff suit les conventions PEP 8 comme Black
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"

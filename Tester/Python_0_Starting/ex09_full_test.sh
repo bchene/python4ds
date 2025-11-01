@@ -63,12 +63,19 @@ pip show ft_package
 echo ""
 
 # 9. Lancer le tester Python
-echo "🧪 Étape 9: Lancement du tester Python"
+echo "🧪 Étape 9: Lancement de ex09_ft_package_tester.py"
 cd "$TESTER_DIR"
-python ex09_ft_package_tester.py
+# stdout de ex09_ft_package_tester.py
+output=$(python ex09_ft_package_tester.py 2>&1)
+expected_output="2
+0"
+echo -e "\033[90mSortie obtenue:\033[0m"
+echo "$output"
+if [ "$output" = "$expected_output" ]; then
+    echo -e "\033[92m✓ Test passed\033[0m"
+else
+    echo -e "\033[91m✗ Test failed\033[0m"
+    echo -e "\033[90mSortie attendue:\033[0m"
+    echo "$expected_output"
+fi
 echo ""
-
-# 10. Résultat final
-echo "========================================="
-echo "✅ TOUS LES TESTS SONT PASSÉS"
-echo "========================================="
