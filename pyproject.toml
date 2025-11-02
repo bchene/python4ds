@@ -7,12 +7,18 @@
 # - W : Warnings de pycodestyle (PEP 8 style warnings)
 # - F : Règles de pyflakes (détection d'erreurs logiques)
 select = ["E", "W", "F"]
+# Active le mode preview pour utiliser certaines règles (E117, E203, E302)
+preview = true
+
+# Ajout explicite des règles spécifiques
+# Note: E203 (whitespace before ':') est souvent désactivée par défaut
+#       E302 (expected 2 blank lines) devrait être dans E mais ajout explicite
+#       E122 (continuation line indentation) est couverte par E117 dans Ruff
+extend-select = ["E203", "E302", "E117"]
 
 # Pas d'ignore pour être strict comme flake8
+# Note: E203 peut être ignorée car elle entre en conflit avec Black
 # ignore = []
-
-# Configuration supplémentaire si nécessaire
-# extend-select = []
 
 [tool.ruff.format]
 # Active le formatage automatique avec Ruff
