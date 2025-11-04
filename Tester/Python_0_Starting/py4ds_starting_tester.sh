@@ -8,7 +8,7 @@ DEV_DIR="$(cd "$BASE_DIR/../../Dev/Python_0_Starting" && pwd)"
 
 if [ $# -eq 0 ]; then
     for i in {0..9}; do
-        ./all_tester.sh $i
+        ./py4ds_starting_tester.sh $i
     done
     exit 0
 fi
