@@ -23,7 +23,7 @@ class TestSliceMe(TestCase):
         start = 0
         end = 2
 
-        print(f"\033[90mTest 1 : slice_me({family}, {start}, {end})\033[0m")
+        print(f"\033[2;34mTest 1 : slice_me({family}, {start}, {end})\033[0m")
         result, output = capture_output(slice_me, family, start, end)
         print(f"\033[0m{output}\033[0m")
         print(f"\033[0m{result}\033[0m")
@@ -39,7 +39,7 @@ class TestSliceMe(TestCase):
         start = 1
         end = -2
 
-        print(f"\033[90mTest 2 : slice_me({family}, {start}, {end})\033[0m")
+        print(f"\033[2;34mTest 2 : slice_me({family}, {start}, {end})\033[0m")
         result, output = capture_output(slice_me, family, start, end)
         print(f"\033[0m{output}\033[0m")
         print(f"\033[0m{result}\033[0m")
@@ -55,7 +55,7 @@ class TestSliceMe(TestCase):
         start = 0
         end = 3
 
-        print(f"\033[90mTest 3 : slice_me({family}, {start}, {end})\033[0m")
+        print(f"\033[2;34mTest 3 : slice_me({family}, {start}, {end})\033[0m")
         result, output = capture_output(slice_me, family, start, end)
         print(f"\033[0m{output}\033[0m")
         print(f"\033[0m{result}\033[0m")
@@ -70,7 +70,7 @@ class TestSliceMe(TestCase):
         start = -2
         end = 4
 
-        print(f"\033[90mTest 4 : slice_me({family}, {start}, {end})\033[0m")
+        print(f"\033[2;34mTest 4 : slice_me({family}, {start}, {end})\033[0m")
         result, output = capture_output(slice_me, family, start, end)
         print(f"\033[0m{output}\033[0m")
         print(f"\033[0m{result}\033[0m")
@@ -86,7 +86,7 @@ class TestSliceMe(TestCase):
         start = -3
         end = -1
 
-        print(f"\033[90mTest 5 : slice_me({family}, {start}, {end})\033[0m")
+        print(f"\033[2;34mTest 5 : slice_me({family}, {start}, {end})\033[0m")
         result, output = capture_output(slice_me, family, start, end)
         print(f"\033[0m{output}\033[0m")
         print(f"\033[0m{result}\033[0m")
@@ -102,7 +102,7 @@ class TestSliceMe(TestCase):
         start = 2
         end = 1
 
-        print(f"\033[90mTest 6 : slice_me({family}, {start}, {end})\033[0m")
+        print(f"\033[2;34mTest 6 : slice_me({family}, {start}, {end})\033[0m")
         result, output = capture_output(slice_me, family, start, end)
         print(f"\033[0m{output}\033[0m")
         print(f"\033[0m{result}\033[0m")
@@ -117,7 +117,7 @@ class TestSliceMe(TestCase):
         start = -1
         end = -3
 
-        print(f"\033[90mTest 7 : slice_me({family}, {start}, {end})\033[0m")
+        print(f"\033[2;34mTest 7 : slice_me({family}, {start}, {end})\033[0m")
         result, output = capture_output(slice_me, family, start, end)
         print(f"\033[0m{output}\033[0m")
         print(f"\033[0m{result}\033[0m")
@@ -132,7 +132,7 @@ class TestSliceMe(TestCase):
         start = 1
         end = 2
 
-        print(f"\033[90mTest 8 : slice_me({family}, {start}, {end})\033[0m")
+        print(f"\033[2;34mTest 8 : slice_me({family}, {start}, {end})\033[0m")
         result, output = capture_output(slice_me, family, start, end)
         print(f"\033[0m{output}\033[0m")
         print(f"\033[0m{result}\033[0m")
@@ -148,7 +148,7 @@ class TestSliceMe(TestCase):
         start = 0
         end = 10
 
-        print(f"\033[90mTest 9 : slice_me({family}, {start}, {end})\033[0m")
+        print(f"\033[2;34mTest 9 : slice_me({family}, {start}, {end})\033[0m")
         result, output = capture_output(slice_me, family, start, end)
         print(f"\033[0m{output}\033[0m")
         print(f"\033[0m{result}\033[0m")
@@ -163,7 +163,7 @@ class TestSliceMe(TestCase):
         start = 0
         end = 2
 
-        print(f"\033[90mTest 10 : slice_me({family}, {start}, {end})\033[0m")
+        print(f"\033[2;34mTest 10 : slice_me({family}, {start}, {end})\033[0m")
         result, output = capture_output(slice_me, family, start, end)
         print(f"\033[0m{output}\033[0m")
         print(f"\033[0m{result}\033[0m")
@@ -179,7 +179,7 @@ class TestSliceMe(TestCase):
         start = 0
         end = 2
 
-        print(f"\033[90mTest 11 : slice_me({family}, {start}, {end})\033[0m")
+        print(f"\033[2;34mTest 11 : slice_me({family}, {start}, {end})\033[0m")
         try:
             slice_me(family, start, end)
             self.fail("AssertionError should have been raised")
@@ -194,7 +194,7 @@ class TestSliceMe(TestCase):
         start = 0
         end = 2
 
-        print(f"\033[90mTest 12 : slice_me({family}, {start}, {end})\033[0m")
+        print(f"\033[2;34mTest 12 : slice_me({family}, {start}, {end})\033[0m")
         try:
             slice_me(family, start, end)
             self.fail("AssertionError should have been raised")
@@ -209,7 +209,7 @@ class TestSliceMe(TestCase):
         start = 0
         end = 2
 
-        print(f"\033[90mTest 13 : slice_me({family}, {start}, {end})\033[0m")
+        print(f"\033[2;34mTest 13 : slice_me({family}, {start}, {end})\033[0m")
         try:
             slice_me(family, start, end)
             self.fail("AssertionError should have been raised")
@@ -224,7 +224,7 @@ class TestSliceMe(TestCase):
         start = "0"
         end = 2
 
-        print(f"\033[90mTest 14 : slice_me({family}, {start}, {end})\033[0m")
+        print(f"\033[2;34mTest 14 : slice_me({family}, {start}, {end})\033[0m")
         try:
             slice_me(family, start, end)
             self.fail("AssertionError should have been raised")
@@ -239,7 +239,7 @@ class TestSliceMe(TestCase):
         start = 0
         end = "2"
 
-        print(f"\033[90mTest 15 : slice_me({family}, {start}, {end})\033[0m")
+        print(f"\033[2;34mTest 15 : slice_me({family}, {start}, {end})\033[0m")
         try:
             slice_me(family, start, end)
             self.fail("AssertionError should have been raised")
@@ -254,7 +254,7 @@ class TestSliceMe(TestCase):
         start = 0
         end = 2
 
-        print(f"\033[90mTest 16 : slice_me({family}, {start}, {end})\033[0m")
+        print(f"\033[2;34mTest 16 : slice_me({family}, {start}, {end})\033[0m")
         try:
             slice_me(family, start, end)
             self.fail("AssertionError should have been raised")
