@@ -11,8 +11,7 @@ def test_bmi_function(
         bmi = give_bmi(height, weight)
         print(f"give_bmi -> {bmi} {type(bmi)}")
         apply_limit_result = apply_limit(bmi, limit)
-        print(f"apply_limit -> \
-        {apply_limit_result} {type(apply_limit_result)}")
+        print(f"apply_limit -> {apply_limit_result}")
     except Exception as e:
         print(f"\033[91mAssertionError: {e}\033[0m")
 
