@@ -15,10 +15,9 @@ fi
 
 if [ $# -eq 1 ]; then
     EX_NUM=$1
-    echo -e "\033[96m========================================================\033[0m"
-    echo -e "\033[96mPYTHON FOR DATA SCIENCE - 1 ARRAY - EX0${EX_NUM} TESTER\033[0m"    
-    echo -e "\033[96m========================================================\033[0m"
-    
+    str1="                                                         "
+    str2="     PYTHON FOR DATA SCIENCE - 1 ARRAY - EX0${EX_NUM} TESTER     "
+    echo -e "\033[7;34m${str1}\n${str2}\n${str1}\033[0m"
     case "$EX_NUM" in
         0)
             cp "$DEV_DIR/ex00/give_bmi.py" .

@@ -6,8 +6,14 @@ def test_bmi_function(
 ) -> None:
     """Test the bmi functions with the given height and weight."""
     try:
-        print("\033[90m--------------------------------\033[0m")
-        print(f"\033[90mh = {height} - w = {weight} - l = {limit}\033[0m")
+        print("")
+        str = f"\033[7;30mh = {height} - w = {weight} - l = {limit}"
+        if len(str) > 80:
+            str = str[:80] + "..."
+        elif len(str) < 80:
+            str = str + " " * (80 - len(str))
+        str += "\033[0m"
+        print(str)
         bmi = give_bmi(height, weight)
         print(f"give_bmi -> {bmi} {type(bmi)}")
         apply_limit_result = apply_limit(bmi, limit)
