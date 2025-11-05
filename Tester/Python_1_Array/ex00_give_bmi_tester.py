@@ -25,7 +25,7 @@ def main():
         test_bmi_function([1, 2, 3], [4, 5], 26)
         test_bmi_function([1, 2, 3], [4, 5, "a"], 26)
         test_bmi_function([1, 2, 3], [4, 5, 0], 26)
-        test_bmi_function([1, 2, 3], [4, 5, 6], "26")
+        test_bmi_function([1, 2, 3], [4, 5, 6], "a")
         test_bmi_function([1, 2, 3], [4, 5, 6], -1)
         test_bmi_function([2.71, 1.15], [165.3, 38.4], 26)
     except Exception as e:
