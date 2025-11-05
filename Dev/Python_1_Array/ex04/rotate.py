@@ -12,7 +12,7 @@ def crop_image(
     zoom_factor: int
 ) -> np.array:
     """
-    crops an image, prints its format, and its pixels, content in grayscale format.
+    Crops and zooms an image.
 
     Args:
         image: the image to crop
@@ -28,7 +28,7 @@ def crop_image(
         AssertionError: If the image is not at least 2D array.
         AssertionError: If x and y are not non-negative.
         AssertionError: If size_x and size_y are not positive.
-        AssertionError: If x + size_x and y + size_y are not within image bounds.
+        AssertionError: If x + size_x or y + size_y are outside image bounds.
         AssertionError: If zoom_factor is not >= 1.
     """
 
@@ -47,34 +47,6 @@ def crop_image(
     return cropped
 
 
-def remove_color_channel(image: np.array, channel: int) -> np.array:
-    """
-    Removes the color channel from the image.
-
-    Args:
-        image: the image to remove the color channel from
-        channel: the channel to remove
-
-    Returns:
-        the image with the color channel removed
-    Raises:
-        AssertionError: If the image is not a numpy array.
-        AssertionError: If the channel is not an integer between 0
-        and the number of color channels - 1.
-    """
-    assert isinstance(image, np.ndarray), "image must be a numpy array"
-    assert (isinstance(channel, int) and 0 <= channel and channel < image.shape[2]),\
-        "channel must be an integer between 0 and the number of color channels - 1"
-
-    # remove 3rd dimention : RGB (3) > grayscale (channel)
-    # form [y][x][RGB] to [y][x] = [channel]
-    image = image[:, :, channel]
-    # Add dimension: (400, 400) -> (400, 400, 1)
-    # img_array = np.expand_dims(img_array, axis=2)
-
-    return image
-
-
 def display_image(image: np.array):
     """
     displays an image in grayscale or color.
@@ -86,25 +58,13 @@ def display_image(image: np.array):
     plt.show()
 
 
-def transpose_rotate90(image: np.array) -> np.array:
-    """
-    transpose and rotates by 90 degrees.
-    """
-    # flip vertically (inverser les lignes) ou  np.flipud(image)
-    # image = image[::-1, :]
-
-    # flip horizontally (inverser les colonnes) ou np.fliplr(image)
-    image = image[:, ::-1]  # Slice
-
-    # rotate 90 degrees clockwise ou np.rot90(image)
-    image = image.T[::-1]  # Transpose puis Slice
-
-    # rotate 180 degrees clockwise or np.rot90(image, 2)
-    # image = image[::-1, ::-1] # Slice puis Slice
-
-    # rotate -90 degrees counterclockwise ou np.rot90(image, -1)
-    # image = image[:, ::-1].T  # Slice puis Transpose
-    return image
+def transpose_image(image: np.array) -> np.array:
+    """transpose the image. (swap rows and columns) == image.T"""
+    result = image.copy()
+    for x in range(image.shape[0]):
+        for y in range(image.shape[1]):
+            result[x, y] = image[y, x]
+    return result
 
 
 def main():
@@ -113,15 +73,15 @@ def main():
         image = li.ft_load("animal.jpeg")
         # crop_image
         image = crop_image(image, 450, 100, 400, 400, 1)
-        # remove_color_channel
-        image = remove_color_channel(image, 0)
-        # transpose_rotate90
-        image = transpose_rotate90(image)
+        # RGB > grayscale (red only channel (0) ))
+        image = image[:, :, 0]
+        # transpose
+        image = transpose_image(image)
+        # print the shape and the image
+        print(f"New shape after Transpose: {image.shape}")
+        print(image)
         # display_image
         display_image(image)
-        # print the shape and the image
-        print(f"New shape after slicing: {image.shape}")
-        print(image)
 
     except AssertionError as e:
         print(f"AssertionError: {e}")

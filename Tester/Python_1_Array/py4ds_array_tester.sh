@@ -18,12 +18,11 @@ if [ $# -eq 1 ]; then
     echo -e "\033[96m========================================================\033[0m"
     echo -e "\033[96mPYTHON FOR DATA SCIENCE - 1 ARRAY - EX0${EX_NUM} TESTER\033[0m"    
     echo -e "\033[96m========================================================\033[0m"
-    echo -e "\033[0m"
     
     case "$EX_NUM" in
         0)
             cp "$DEV_DIR/ex00/give_bmi.py" .
-            python ex00_give_bmi_tester.py | cat -e
+            python ex00_give_bmi_tester.py
             rm give_bmi.py
             ;;
         1)
@@ -42,12 +41,15 @@ if [ $# -eq 1 ]; then
             rm zoom.py load_image.py
             ;;
         4)
-            cp "$DEV_DIR/ex04/rotate.py" "$DEV_DIR/ex03/load_image.py" .
+            cp "$DEV_DIR/ex04/rotate.py" "$DEV_DIR/ex04/load_image.py" .
             python rotate.py
             rm rotate.py load_image.py
             ;;
         5)
             # TODO: Add the tester for the ex05
+            cp "$DEV_DIR/ex05/pimp_image.py" "$DEV_DIR/ex05/load_image.py" .
+            python ex05_pimp_image_tester.py
+            rm pimp_image.py load_image.py
             ;;
         *)
             echo "❌ Erreur: Exercice invalide. Utilisez un nombre de 0 à 9."

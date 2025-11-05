@@ -271,7 +271,7 @@ if __name__ == "__main__":
     result = runner.run(suite)
     if result.wasSuccessful():
         tests_count = result.testsRun
-        print(f"\033[92m✓ Tous les tests ont réussi ({tests_count} tests)\033[0m")
+        print(f"\033[92m✓ Tous les tests sont réussi ({tests_count})\033[0m")
     else:
         failures = len(result.failures)
         errors = len(result.errors)

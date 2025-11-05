@@ -12,7 +12,7 @@ def crop_image(
     zoom_factor: int
 ) -> np.array:
     """
-    crops an image, prints its format, and its pixels, content in grayscale format.
+    Crops and zooms an image.
 
     Args:
         image: the image to crop
@@ -28,7 +28,7 @@ def crop_image(
         AssertionError: If the image is not at least 2D array.
         AssertionError: If x and y are not non-negative.
         AssertionError: If size_x and size_y are not positive.
-        AssertionError: If x + size_x and y + size_y are not within image bounds.
+        AssertionError: If x + size_x or y + size_y are outside image bounds.
         AssertionError: If zoom_factor is not >= 1.
     """
 
@@ -45,34 +45,6 @@ def crop_image(
     # crop the image
     cropped = image[y: y + size_y: zoom_factor, x: x + size_x: zoom_factor]
     return cropped
-
-
-def remove_color_channel(image: np.array, channel: int) -> np.array:
-    """
-    Removes the color channel from the image.
-
-    Args:
-        image: the image to remove the color channel from
-        channel: the channel to remove
-
-    Returns:
-        the image with the color channel removed
-    Raises:
-        AssertionError: If the image is not a numpy array.
-        AssertionError: If the channel is not an integer between 0
-        and the number of color channels - 1.
-    """
-    assert isinstance(image, np.ndarray), "image must be a numpy array"
-    assert (isinstance(channel, int) and 0 <= channel and channel < image.shape[2]),\
-        "channel must be an integer between 0 and the number of color channels - 1"
-
-    # remove 3rd dimention : RGB (3) > grayscale (channel)
-    # form [y][x][RGB] to [y][x] = [channel]
-    image = image[:, :, channel]
-    # Add dimension: (400, 400) -> (400, 400, 1)
-    # img_array = np.expand_dims(img_array, axis=2)
-
-    return image
 
 
 def display_image(image: np.array):
@@ -92,13 +64,13 @@ def main():
         image = li.ft_load("animal.jpeg")
         # crop_image
         image = crop_image(image, 450, 100, 400, 400, 1)
-        # remove_color_channel
-        image = remove_color_channel(image, 0)
-        # display the image in grayscale or color
-        display_image(image)
+        # RGB > grayscale (red only channel (0) ))
+        image = image[:, :, 0]
         # print the shape and the image
         print(f"New shape after slicing: {image.shape}")
         print(image)
+        # display the image in grayscale or color
+        display_image(image)
 
     except AssertionError as e:
         print(f"AssertionError: {e}")
