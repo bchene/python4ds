@@ -4,7 +4,7 @@
 set +e  # Continuer même en cas d'erreur
 
 BASE_DIR="$(cd "$(dirname "$0")" && pwd)"
-DEV_DIR="$(cd "$BASE_DIR/../../Dev/Python_1_Array" && pwd)"
+DEV_DIR="$(cd "$BASE_DIR/../Python_1_Array" && pwd)"
 
 if [ $# -eq 0 ]; then
     for i in {0..5}; do
