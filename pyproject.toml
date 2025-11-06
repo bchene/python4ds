@@ -26,3 +26,36 @@ extend-select = ["E203", "E302", "E117"]
 quote-style = "double"
 indent-style = "space"
 line-ending = "auto"
+# Note: Ruff supporte automatiquement les fichiers .ipynb (notebooks Jupyter) depuis la v0.0.291
+# Les règles de linting et de formatage s'appliquent automatiquement au code Python dans les cellules
+
+# Configuration pour Pyright/Pylance (résolution des imports)
+[tool.pyright]
+# Mode de vérification de type
+typeCheckingMode = "basic"
+
+# Chemins supplémentaires pour résoudre les imports
+extraPaths = [
+    ".",
+    "Dev",
+    "Dev/Python_0_Starting",
+    "Dev/Python_1_Array",
+    "Dev/Python_2_DataTable",
+    "Tester",
+    "Tester/Python_0_Starting",
+    "Tester/Python_1_Array",
+    "Tester/Python_2_DataTable",
+    "Formation/dev"
+]
+
+# Désactiver les avertissements pour les imports manquants
+reportMissingImports = false
+reportMissingModuleSource = false
+
+# Désactiver les warnings pour les imports non utilisés
+# Important pour les notebooks Jupyter où les imports sont souvent dans une cellule
+# et utilisés dans d'autres cellules (Pyright analyse chaque cellule indépendamment)
+# reportUnusedImport = "none"
+
+# Version Python
+pythonVersion = "3.10"

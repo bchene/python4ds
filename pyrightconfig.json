@@ -1,0 +1,68 @@
+{
+    // Configuration Pyright pour la résolution des imports
+    // Ce fichier est utilisé par Pylance dans VS Code
+    
+    // Mode de vérification de type
+    "typeCheckingMode": "basic",
+    
+    // Chemins supplémentaires pour résoudre les imports
+    "extraPaths": [
+        ".",
+        "Dev",
+        "Dev/Python_0_Starting",
+        "Dev/Python_0_Starting/ex00",
+        "Dev/Python_0_Starting/ex01",
+        "Dev/Python_0_Starting/ex02",
+        "Dev/Python_0_Starting/ex03",
+        "Dev/Python_0_Starting/ex04",
+        "Dev/Python_0_Starting/ex05",
+        "Dev/Python_0_Starting/ex06",
+        "Dev/Python_0_Starting/ex07",
+        "Dev/Python_0_Starting/ex08",
+        "Dev/Python_0_Starting/ex09",
+        "Dev/Python_1_Array",
+        "Dev/Python_1_Array/ex00",
+        "Dev/Python_1_Array/ex01",
+        "Dev/Python_1_Array/ex02",
+        "Dev/Python_1_Array/ex03",
+        "Dev/Python_1_Array/ex04",
+        "Dev/Python_1_Array/ex05",
+        "Dev/Python_2_DataTable",
+        "Dev/Python_2_DataTable/ex00",
+        "Dev/Python_2_DataTable/ex01",
+        "Dev/Python_2_DataTable/ex02",
+        "Dev/Python_2_DataTable/ex03",
+        "Tester",
+        "Tester/Python_0_Starting",
+        "Tester/Python_1_Array",
+        "Tester/Python_2_DataTable",
+        "Formation/dev"
+    ],
+    
+    // Exclure certains dossiers de l'analyse
+    "exclude": [
+        "**/__pycache__",
+        "**/.venv",
+        "**/venv",
+        "**/node_modules",
+        "**/.git"
+    ],
+    
+    // Niveau de rapport pour les imports manquants
+    "reportMissingImports": "none",
+    "reportMissingModuleSource": "none",
+    
+    // Autres options
+    "reportUnusedImport": "warning",
+    // "reportUnusedImport": "none",
+    // "reportUnusedImport": "hint",
+    // "reportUnusedImport": "suggestion",
+    // "reportUnusedImport": "none",
+    "reportUnusedClass": "warning",
+    "reportUnusedFunction": "warning",
+    "reportUnusedVariable": "warning",
+    
+    // Python version
+    "pythonVersion": "3.10"
+}
+
