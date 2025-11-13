@@ -2,6 +2,7 @@ import sys as system
 from pathlib import Path
 import matplotlib.pyplot as plt
 import pandas as pd
+import numpy as np
 system.path.insert(0, str(Path(__file__).parent.parent))
 from ex00.load_csv import load  # noqa: E402
 
@@ -30,6 +31,47 @@ def popstr_to_int(val: str) -> int:
         return int(float(val) * coef)
     except ValueError:
         raise ValueError(f"Invalid population string: {val}")
+
+
+def correlation_curve(income_list: list[int], life_list: list[float]) -> None:
+    """
+    Correlation curve.
+    """
+    # COURBE CORRELATION
+    # Convertir les listes en arrays numpy pour les calculs
+    income_array = np.array(income_list)
+    life_array = np.array(life_list)
+
+    # Calculer la régression linéaire sur log(income) vs life
+    # (car l'axe x est logarithmique)
+    log_income = np.log10(income_array)
+    # np.polyfit calcule les coefficients de la droite: y = a*x + b
+    # degré 1 = régression linéaire
+    coeffs = np.polyfit(log_income, life_array, deg=1)
+    # coeffs[0] = pente (a), coeffs[1] = ordonnée à l'origine (b)
+
+    # Créer des points pour tracer la droite de régression
+    # Générer des valeurs x dans la plage des données
+    x_trend = np.logspace(
+        np.log10(income_array.min()),
+        np.log10(income_array.max()),
+        100
+    )
+    # Calculer les valeurs y correspondantes: y = a*log10(x) + b
+    y_trend = coeffs[0] * np.log10(x_trend) + coeffs[1]
+
+    # Calculer le coefficient de corrélation R²
+    # R² mesure la qualité de la corrélation
+    # (0 = pas de corrélation, 1 = corrélation parfaite)
+    y_pred = coeffs[0] * log_income + coeffs[1]
+    ss_res = np.sum((life_array - y_pred) ** 2)  # Somme des carrés résiduels
+    ss_tot = np.sum((life_array - np.mean(life_array)) ** 2)  # Somme totale
+    r_squared = 1 - (ss_res / ss_tot)
+
+    # Tracer la courbe de tendance
+    plt.plot(x_trend, y_trend, 'r--', linewidth=2,
+             label=f'Tendance (R² = {r_squared:.3f})')
+    plt.legend()
 
 
 def show_life_expect_income_graph(
@@ -69,6 +111,8 @@ def show_life_expect_income_graph(
         income_list.append(income_int)
 
     plt.scatter(income_list, life_list)
+
+    correlation_curve(income_list, life_list) # TMP
 
     plt.xlabel('Gross Domestic Product')
     plt.ylabel('Life Expectancy')
