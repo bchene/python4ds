@@ -12,9 +12,13 @@ def test_load_csv_function(filename: str) -> None:
             str = str + " " * (64 - len(str))
         str += "\033[0m"
         print(str)
+
         data = load(filename)
         if data is None:
             print("-> None returned")
+        else:
+            print(data)
+
     except Exception as e:
         print(f"\033[91mAssertionError: {e}\033[0m")
 

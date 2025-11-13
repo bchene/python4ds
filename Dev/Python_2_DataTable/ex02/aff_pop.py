@@ -65,7 +65,7 @@ def show_countries_pop_graph(
         add_country_to_pop_graph(data, country, color)
     plt.xlabel('Year')
     plt.ylabel('Population')
-    plt.title('Population by Year')
+    plt.title('Population Projections')
     plt.grid(False)
     plt.xticks(data.columns[1:-50:40])
     plt.yticks([0, 20e6, 40e6, 60e6], ["", "20M", "40M", "60M"])

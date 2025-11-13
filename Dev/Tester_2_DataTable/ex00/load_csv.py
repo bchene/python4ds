@@ -43,10 +43,7 @@ def load(filename: str) -> pd.DataFrame | None:
         check_file_access_R_OK(filename)
         check_extension(filename, '.csv')
         data = read_csv_file(filename)
-
         print("Loading dataset of dimensions", data.shape)
-        print(data)
-
         return data
 
     except AssertionError as e:

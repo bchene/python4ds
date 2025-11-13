@@ -19,8 +19,8 @@ def show_country_life_expt_graph(
     plt.plot(country_data.columns[1:], country_data.iloc[0, 1:])
 
     plt.xlabel('Year')
-    plt.ylabel('Life Expectancy')
-    plt.title(f'{country} Life Expectancy by Year')
+    plt.ylabel('Life expectancy')
+    plt.title(f'{country} Life expectancy Projections')
     plt.grid(False)
     plt.xticks(country_data.columns[1::40])
     plt.show()
