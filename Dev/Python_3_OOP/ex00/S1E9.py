@@ -8,8 +8,7 @@ class Character(ABC):
     def __init__(self, first_name: str, is_alive: bool = True):
         '''Character abstract constructor method : \
 Character(first_name: str, is_alive: bool = True).'''
-        self.first_name = first_name
-        self.is_alive = is_alive
+        ...  # To be implemented in the subclass.
 
     @abstractmethod
     def die(self) -> None:
@@ -23,7 +22,8 @@ class Stark(Character):
     def __init__(self, first_name: str, is_alive: bool = True):
         '''Stark constructor method : \
 Stark(first_name: str, is_alive: bool = True).'''
-        super().__init__(first_name, is_alive)
+        self.first_name = first_name
+        self.is_alive = is_alive
 
     def die(self) -> None:
         '''Stark method die(self) : \
