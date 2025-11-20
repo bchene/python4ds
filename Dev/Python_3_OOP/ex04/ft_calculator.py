@@ -3,7 +3,7 @@ class calculator:
 
     @staticmethod
     def dotproduct(V1: list[float], V2: list[float]) -> None:
-        '''calculator method dotproduct(V1: list[float], V2: list[float]) -> None: \
+        '''calculator method dotproduct(list[float], list[float]) -> None: \
 calculates the dot product of two vectors and prints the result \
 without instantiating its class.'''
         res = 0
@@ -13,7 +13,7 @@ without instantiating its class.'''
 
     @staticmethod
     def add_vec(V1: list[float], V2: list[float]) -> None:
-        '''calculator method add_vec(V1: list[float], V2: list[float]) -> None: \
+        '''calculator method add_vec(list[float], list[float]) -> None: \
 adds the values of the two vectors and prints the result \
 without instantiating its class.'''
         res = [float(val1 + val2) for val1, val2 in zip(V1, V2)]
@@ -21,7 +21,7 @@ without instantiating its class.'''
 
     @staticmethod
     def sous_vec(V1: list[float], V2: list[float]) -> None:
-        '''calculator method sous_vec(V1: list[float], V2: list[float]) -> None: \
+        '''calculator method sous_vec(list[float], list[float]) -> None: \
 subtracts the values of the two vectors and prints the result \
 without instantiating its class.'''
         res = [float(val1 - val2) for val1, val2 in zip(V1, V2)]

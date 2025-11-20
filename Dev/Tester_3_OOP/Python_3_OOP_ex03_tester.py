@@ -10,6 +10,10 @@ print("---")
 v3 = calculator([10.0, 15.0, 20.0])
 v3 - 5
 v3 / 5
+try:
+    v3 / 0
+except ValueError as e:
+    print(f"\033[91mValueError: {e}\033[0m")
 
 # Expected output:
 # ------------------------------------------------------------
