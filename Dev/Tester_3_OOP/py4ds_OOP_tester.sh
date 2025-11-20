@@ -46,12 +46,12 @@ if [ $# -eq 1 ]; then
             ;;
         *)
             echo "❌ Erreur: Exercice invalide. Utilisez un nombre de 0 à 4."
-            rm S1E9.py S1E7.py DiamondTrap.py ft_calculator.py
+            rm S1E9.py S1E7.py DiamondTrap.py
             exit 1
             ;;
     esac
 
-    rm S1E9.py S1E7.py DiamondTrap.py ft_calculator.py
+    rm S1E9.py S1E7.py DiamondTrap.py
 
     echo ""
     echo "✅ TEST EX0${EX_NUM} TERMINÉ"
