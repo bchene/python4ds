@@ -2,6 +2,7 @@ class calculator:
     '''calculator class is able to do calculations of vectors with a scalar.'''
 
     def __init__(self, values: list[float]) -> None:
+        '''calculator constructor : calculator(values: list[float]) -> None.'''
         self.values = values
 
     def __add__(self, object) -> None:

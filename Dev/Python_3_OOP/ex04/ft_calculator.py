@@ -6,9 +6,9 @@ class calculator:
         '''calculator method dotproduct(list[float], list[float]) -> None: \
 calculates the dot product of two vectors and prints the result \
 without instantiating its class.'''
-        res = 0
+        res: float = 0
         for val1, val2 in zip(V1, V2):
-            res += val1 * val2
+            res += float(val1 * val2)
         print(f"Dot product is: {res}")
 
     @staticmethod

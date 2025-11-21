@@ -1,6 +1,6 @@
-import sys
+import sys as system
 from pathlib import Path
-sys.path.insert(0, str(Path(__file__).parent.parent / "ex00"))
+system.path.insert(0, str(Path(__file__).parent.parent / "ex00"))
 from S1E9 import Character  # noqa: E402
 
 

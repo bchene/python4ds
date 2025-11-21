@@ -1,6 +1,6 @@
-import sys
+import sys as system
 from pathlib import Path
-sys.path.insert(0, str(Path(__file__).parent.parent / "ex01"))
+system.path.insert(0, str(Path(__file__).parent.parent / "ex01"))
 from S1E7 import Baratheon, Lannister  # noqa: E402
 
 
