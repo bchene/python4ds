@@ -26,19 +26,19 @@ if [ $# -eq 1 ]; then
             rm statistics.py
             ;;
         1)
-            cp "$DEV_DIR/ex00/statistics.py" statistics.py
-            python Python_4_Dod_ex00_tester.py
-            rm statistics.py
+            cp "$DEV_DIR/ex01/in_out.py" in_out.py
+            python Python_4_Dod_ex01_tester.py
+            rm in_out.py
             ;;
         2)
-            cp "$DEV_DIR/ex00/statistics.py" statistics.py
-            python Python_4_Dod_ex00_tester.py
-            rm statistics.py
+            cp "$DEV_DIR/ex02/callLimit.py" callLimit.py
+            python Python_4_Dod_ex02_tester.py
+            rm callLimit.py
             ;;
         3)
-            cp "$DEV_DIR/ex00/statistics.py" statistics.py
-            python Python_4_Dod_ex00_tester.py
-            rm statistics.py
+            cp "$DEV_DIR/ex03/new_student.py" new_student.py
+            python Python_4_Dod_ex03_tester.py
+            rm new_student.py
             ;;
         *)
             echo "❌ Erreur: Exercice invalide. Utilisez un nombre de 0 à 4."
