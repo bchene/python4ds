@@ -7,13 +7,14 @@ Ce guide explique les concepts de **Data Oriented Design** en Python, incluant l
 ## 📋 Table des matières
 
 1. [Vue d'ensemble](#1-vue-densemble)
-2. [Le mot-clé `nonlocal`](#2-le-mot-clé-nonlocal)
-3. [Exemple 1 : Fonction `outer`](#3-exemple-1-fonction-outer)
-4. [Exemple 2 : Décorateur `callLimit`](#4-exemple-2-décorateur-calllimit)
-5. [Les décorateurs Python](#5-les-décorateurs-python)
-6. [Les Wrappers](#6-les-wrappers)
-7. [Les Dataclasses](#7-les-dataclasses)
-8. [Comparaison avec `global`](#8-comparaison-avec-global)
+2. [Les fonctions comme objets de première classe](#2-les-fonctions-comme-objets-de-première-classe)
+3. [Le mot-clé `nonlocal`](#3-le-mot-clé-nonlocal)
+4. [Exemple 1 : Fonction `outer`](#4-exemple-1-fonction-outer)
+5. [Exemple 2 : Décorateur `callLimit`](#5-exemple-2-décorateur-calllimit)
+6. [Les décorateurs Python](#6-les-décorateurs-python)
+7. [Les Wrappers](#7-les-wrappers)
+8. [Les Dataclasses](#8-les-dataclasses)
+9. [Comparaison avec `global`](#9-comparaison-avec-global)
 
 ---
 
@@ -25,6 +26,7 @@ Le **Data Oriented Design** (DOD) est un paradigme de programmation qui met l'ac
 
 ### Concepts abordés
 
+- **Fonctions comme objets** : Les fonctions peuvent être stockées dans des variables
 - **Closures** : Fonctions qui capturent et mémorisent des variables
 - **`nonlocal`** : Modification de variables du scope parent
 - **Décorateurs** : Modification du comportement des fonctions
@@ -33,7 +35,300 @@ Le **Data Oriented Design** (DOD) est un paradigme de programmation qui met l'ac
 
 ---
 
-## 2. Le mot-clé `nonlocal`
+## 2. Les fonctions comme objets de première classe
+
+### Concept fondamental
+
+En Python, les **fonctions sont des objets de première classe** (first-class objects). Cela signifie qu'elles peuvent être :
+- **Stockées dans des variables**
+- **Passées en paramètres** à d'autres fonctions
+- **Retournées** par d'autres fonctions
+- **Stockées dans des structures de données** (listes, dictionnaires, etc.)
+
+### Exemple de base
+
+```python
+def greet(name):
+    return f"Hello, {name}!"
+
+# Stocker la fonction dans une variable
+ma_var = greet
+
+# Utiliser la variable comme une fonction
+print(ma_var("Alice"))  # "Hello, Alice!"
+
+# Les deux sont équivalents
+print(greet("Alice"))   # "Hello, Alice!"
+print(ma_var("Alice"))  # "Hello, Alice!"
+```
+
+**Important :** Notez qu'on écrit `ma_var = greet` **sans parenthèses**. Avec parenthèses, on appellerait la fonction immédiatement.
+
+### Différence : Référence vs Appel
+
+```python
+def f(x):
+    return x * 2
+
+# Référence à la fonction (sans parenthèses)
+ma_var = f          # ✅ Stocke la fonction
+print(ma_var)       # <function f at 0x...>
+
+# Appel de la fonction (avec parenthèses)
+resultat = f(5)     # ✅ Appelle la fonction
+print(resultat)     # 10
+
+# Erreur courante
+ma_var = f(5)       # ❌ Stocke le RÉSULTAT (10), pas la fonction
+```
+
+### Exemple dans `statistics.py`
+
+Dans le code `statistics.py`, les fonctions sont stockées dans un dictionnaire :
+
+```python
+def ft_statistics(*args, **kwargs):
+    STATISTICS_FUNCTIONS = {
+        "mean": ft_mean,      # ← Fonction stockée
+        "median": ft_median,  # ← Fonction stockée
+        "quartile": ft_quartile,
+        "std": ft_std,
+        "var": ft_var
+    }
+    
+    for _, fn in kwargs.items():
+        if fn in STATISTICS_FUNCTIONS.keys():
+            # Appel de la fonction stockée dans le dictionnaire
+            result = STATISTICS_FUNCTIONS[fn](args)
+            print(f"{fn} : {result}")
+```
+
+**Fonctionnement :**
+1. Les fonctions sont stockées dans un dictionnaire
+2. La clé est le nom de la statistique (string)
+3. La valeur est la fonction elle-même (objet fonction)
+4. On peut appeler la fonction via le dictionnaire : `STATISTICS_FUNCTIONS["mean"](args)`
+
+### Cas d'usage pratiques
+
+#### 1. Dictionnaire de fonctions (dispatch table)
+
+```python
+def add(a, b):
+    return a + b
+
+def subtract(a, b):
+    return a - b
+
+def multiply(a, b):
+    return a * b
+
+# Dictionnaire de fonctions
+operations = {
+    "+": add,
+    "-": subtract,
+    "*": multiply
+}
+
+# Utilisation
+result = operations["+"](5, 3)  # 8
+result = operations["-"](5, 3)  # 2
+result = operations["*"](5, 3)  # 15
+```
+
+**Avantage :** Évite de longues chaînes `if/elif/else`.
+
+#### 2. Passer une fonction en paramètre
+
+```python
+def apply_operation(x, y, operation):
+    """Applique une opération à x et y."""
+    return operation(x, y)
+
+def add(a, b):
+    return a + b
+
+def multiply(a, b):
+    return a * b
+
+# Passer la fonction en paramètre
+result1 = apply_operation(5, 3, add)       # 8
+result2 = apply_operation(5, 3, multiply)  # 15
+```
+
+#### 3. Retourner une fonction
+
+```python
+def get_operation(op_type):
+    """Retourne une fonction selon le type."""
+    if op_type == "add":
+        return lambda x, y: x + y
+    elif op_type == "multiply":
+        return lambda x, y: x * y
+    else:
+        return lambda x, y: x - y
+
+# Récupérer et utiliser la fonction
+add_func = get_operation("add")
+result = add_func(5, 3)  # 8
+```
+
+#### 4. Liste de fonctions
+
+```python
+def step1(x):
+    return x + 1
+
+def step2(x):
+    return x * 2
+
+def step3(x):
+    return x - 1
+
+# Liste de fonctions à exécuter en séquence
+pipeline = [step1, step2, step3]
+
+# Appliquer toutes les fonctions
+value = 5
+for func in pipeline:
+    value = func(value)
+
+print(value)  # ((5 + 1) * 2) - 1 = 11
+```
+
+#### 5. Fonctions comme valeurs de configuration
+
+```python
+def process_data(data, validator, transformer, formatter):
+    """Traite des données avec des fonctions configurables."""
+    if validator(data):
+        transformed = transformer(data)
+        return formatter(transformed)
+    return None
+
+# Définir les fonctions de traitement
+def is_valid(x):
+    return x > 0
+
+def double(x):
+    return x * 2
+
+def to_string(x):
+    return str(x)
+
+# Utiliser
+result = process_data(5, is_valid, double, to_string)  # "10"
+```
+
+### Limitations et précautions
+
+#### 1. Vérifier le type avant d'appeler
+
+```python
+def safe_call(func, *args):
+    """Appelle une fonction de manière sécurisée."""
+    if callable(func):  # Vérifie que func est appelable
+        return func(*args)
+    else:
+        raise TypeError(f"{func} is not callable")
+
+# Utilisation
+safe_call(add, 5, 3)        # ✅ Fonctionne
+safe_call("not a function", 5, 3)  # ❌ Erreur gérée
+```
+
+#### 2. Ne pas confondre référence et appel
+
+```python
+def f():
+    return 42
+
+# ❌ Erreur courante
+ma_var = f()      # Appelle f() immédiatement, stocke 42
+ma_var()          # ❌ Erreur : int n'est pas appelable
+
+# ✅ Correct
+ma_var = f        # Stocke la fonction
+ma_var()          # ✅ Appelle la fonction, retourne 42
+```
+
+#### 3. Les fonctions lambda sont aussi des objets
+
+```python
+# Fonction normale
+def add(a, b):
+    return a + b
+
+# Fonction lambda (anonyme)
+add_lambda = lambda a, b: a + b
+
+# Les deux sont équivalents
+print(add(5, 3))         # 8
+print(add_lambda(5, 3))  # 8
+
+# Stocker dans un dictionnaire
+operations = {
+    "add": lambda x, y: x + y,
+    "multiply": lambda x, y: x * y
+}
+```
+
+#### 4. Attention aux références vs copies
+
+```python
+def f():
+    return "original"
+
+# Référence (pas de copie)
+ma_var = f
+
+# Modifier f affecte ma_var
+def f():
+    return "modified"
+
+print(ma_var())  # "modified" (si f est redéfini dans le même scope)
+```
+
+**Note :** En Python, redéfinir une fonction dans le même scope remplace l'ancienne référence.
+
+### Schéma conceptuel
+
+```
+Fonction définie
+    ↓
+def f(x):
+    return x * 2
+    ↓
+Stockage dans variable
+    ↓
+ma_var = f  (sans parenthèses)
+    ↓
+ma_var est maintenant une référence à f
+    ↓
+Appel via la variable
+    ↓
+ma_var(5)  → Appelle f(5) → Retourne 10
+```
+
+### Avantages
+
+1. **Flexibilité** : Changer de fonction à l'exécution
+2. **Réutilisabilité** : Passer des fonctions comme paramètres
+3. **Abstraction** : Séparer la logique de l'implémentation
+4. **Dispatch dynamique** : Choisir la fonction selon le contexte
+5. **Composition** : Combiner plusieurs fonctions
+
+### Cas d'usage dans le Data Oriented Design
+
+- **Tables de dispatch** : Dictionnaires de fonctions (comme dans `statistics.py`)
+- **Callbacks** : Fonctions passées en paramètre pour être appelées plus tard
+- **Stratégies** : Pattern Strategy avec fonctions
+- **Pipelines** : Chaînes de traitement de données
+- **Configuration** : Fonctions comme paramètres configurables
+
+---
+
+## 3. Le mot-clé `nonlocal`
 
 ### Problème sans `nonlocal`
 
@@ -489,15 +784,19 @@ print(func())  # (2, 2)
 
 ### Points clés
 
-1. **Closure** : Fonction interne qui capture des variables de son environnement
-2. **`nonlocal`** : Permet de modifier une variable du scope parent (pas global)
-3. **Décorateurs** : Fonctions qui modifient d'autres fonctions
-4. **Wrappers** : Fonctions qui enveloppent d'autres fonctions pour ajouter des fonctionnalités
-5. **Dataclasses** : Classes orientées données avec génération automatique de code
-6. **État persistant** : Les closures maintiennent l'état entre les appels
+1. **Fonctions comme objets** : Les fonctions peuvent être stockées dans des variables, passées en paramètres, retournées
+2. **Closure** : Fonction interne qui capture des variables de son environnement
+3. **`nonlocal`** : Permet de modifier une variable du scope parent (pas global)
+4. **Décorateurs** : Fonctions qui modifient d'autres fonctions
+5. **Wrappers** : Fonctions qui enveloppent d'autres fonctions pour ajouter des fonctionnalités
+6. **Dataclasses** : Classes orientées données avec génération automatique de code
+7. **État persistant** : Les closures maintiennent l'état entre les appels
 
 ### Cas d'usage
 
+- **Tables de dispatch** : Dictionnaires de fonctions pour éviter if/elif/else
+- **Callbacks** : Fonctions passées en paramètre pour être appelées plus tard
+- **Pipelines** : Chaînes de traitement de données
 - **Compteurs** : Maintenir un compteur entre appels
 - **Limiteurs** : Limiter le nombre d'appels d'une fonction
 - **Mémorisation** : Se souvenir de résultats précédents
@@ -507,6 +806,8 @@ print(func())  # (2, 2)
 
 ### Bonnes pratiques
 
+✅ **Utilisez des fonctions comme variables** pour créer des tables de dispatch  
+✅ **Vérifiez `callable()`** avant d'appeler une fonction stockée dans une variable  
 ✅ **Utilisez `nonlocal`** pour modifier des variables du scope parent  
 ✅ **Utilisez des closures** pour créer des fonctions avec état  
 ✅ **Utilisez des décorateurs** pour modifier le comportement de fonctions  
@@ -514,6 +815,7 @@ print(func())  # (2, 2)
 ✅ **Utilisez des dataclasses** pour des structures de données simples  
 ✅ **Documentez** clairement le comportement  
 
+❌ **Ne confondez pas** référence (`ma_var = f`) et appel (`ma_var = f()`)  
 ❌ **Évitez** d'utiliser `global` à la place de `nonlocal`  
 ❌ **Ne créez pas** trop de niveaux d'imbrication (complexité)  
 ❌ **N'oubliez pas** `@wraps` dans vos wrappers pour préserver les métadonnées  
