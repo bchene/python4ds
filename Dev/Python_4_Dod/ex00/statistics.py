@@ -54,8 +54,6 @@ def ft_statistics(*args, **kwargs):
     for _, fn in kwargs.items():
         if fn in STATISTICS_FUNCTIONS.keys():
             try:
-                assert args, \
-                    ("No arguments provided")
                 assert len(args) > 0, \
                     ("The list is empty")
                 assert all(isinstance(x, (int, float)) for x in args), \
